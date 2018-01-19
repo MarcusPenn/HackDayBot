@@ -63,9 +63,9 @@ namespace HackDayBot.Bot.Dialogs
 
                     var data = JObject.Parse(JsonDataResponse);
 
-                    //var intent = data[intent];
-                    //var client = data[0].[entity];
-
+                    var intent = data["topScoringIntent"]["intent"];
+                    var clientName = data["entities"]["0"]["entity"];
+                   
 
                     //extract client from JSON file.
 
