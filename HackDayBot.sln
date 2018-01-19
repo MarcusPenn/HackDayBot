@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackDayBot.UI.Console", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackDayBot.Repository.Sql", "HackDayBot.Repository.Sql\HackDayBot.Repository.Sql.csproj", "{96FC93E8-E20B-4396-9224-F2C6B7985354}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "HackDayBot.Repository.Database", "HackDayBot.Repository.Database\HackDayBot.Repository.Database.sqlproj", "{FDC3E518-31A0-45CA-9D74-6EA91225B8C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{96FC93E8-E20B-4396-9224-F2C6B7985354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96FC93E8-E20B-4396-9224-F2C6B7985354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96FC93E8-E20B-4396-9224-F2C6B7985354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC3E518-31A0-45CA-9D74-6EA91225B8C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC3E518-31A0-45CA-9D74-6EA91225B8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC3E518-31A0-45CA-9D74-6EA91225B8C6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FDC3E518-31A0-45CA-9D74-6EA91225B8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC3E518-31A0-45CA-9D74-6EA91225B8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC3E518-31A0-45CA-9D74-6EA91225B8C6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
