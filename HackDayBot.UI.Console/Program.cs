@@ -10,11 +10,14 @@ namespace HackDayBot.UI.Console
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Get notebook for client.\nClient Name: ");
+            Console.WriteLine("Client Name: ");
             var clientName = Console.ReadLine();
 
-            var notebook = ClientRepository.Retrieve("Clients", clientName, "NotebookUrl");
-            Console.WriteLine(notebook);
+            var notebookUrl = ClientRepository.GetClientNotebookUrl(clientName);
+            var changeControlUrl = ClientRepository.GetClientChangeControlUrl(clientName);
+
+            Console.WriteLine($"Notebook Url: {notebookUrl}");
+            Console.WriteLine($"Change Control Url: {changeControlUrl}");
 
             Console.ReadLine();
         }

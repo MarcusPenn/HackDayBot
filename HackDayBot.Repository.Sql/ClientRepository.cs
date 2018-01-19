@@ -1,21 +1,21 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
-using Dapper;
-
-namespace HackDayBot.Repository.Sql
+﻿namespace HackDayBot.Repository.Sql
 {
-    public class ClientRepository
+    public class ClientRepository : DapperRepository
     {
-        public string Retrieve(string tableName, string clientName, string item)
-        {
-            var query = $"SELECT {item} FROM {tableName} WHERE Name='{clientName}'";
+        private const string TableName = "Clients";
 
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
-            {
-                return db.ExecuteScalar<string>(query);
-            }
+        public string GetClientNotebookUrl(string clientName)
+        {
+            var query = $"SELECT NotebookUrl FROM {TableName} WHERE Name = '{clientName}'";
+
+            return ExecuteQuery(query);
+        }
+
+        public string GetClientChangeControlUrl(string clientName)
+        {
+            var query = $"SELECT ChangeControlUrl FROM {TableName} WHERE Name = '{clientName}'";
+
+            return ExecuteQuery(query);
         }
     }
 }
