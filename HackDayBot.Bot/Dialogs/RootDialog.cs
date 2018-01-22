@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
-using JSONUtils;
 using System.Web.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,31 +22,23 @@ namespace HackDayBot.Bot.Dialogs
         {
             var activity = await result as Activity;
 
-            // calculate something for us to return
-            int length = (activity.Text ?? string.Empty).Length;
+            var searchString = activity.Text;
 
-            var test = await AskLuis(activity.Text);
-
-            // return our reply to the user
-            await context.PostAsync($"You sent {activity.Text} which was {length} characters");
-
-            context.Wait(MessageReceivedAsync);
-        }
-
-        private async Task<string> AskLuis(string searchString)
-        {
-            Query query = new Query();
+            var link = "Sorry, could not find :(";
 
             if(searchString != null)
             {
-                await QueryLUIS(searchString);
+                link = await QueryLUIS(activity.Text);
             }
-            return "";
+
+            await context.PostAsync(link);
+           
+            context.Wait(MessageReceivedAsync);
         }
 
-        private static async Task<LUIS> QueryLUIS(string Query)
+        private static async Task<String> QueryLUIS(string Query)
         {
-            LUIS LUISResult = new LUIS();
+            var link = String.Empty;
             var LUISQuery = Uri.EscapeDataString(Query);
             using (System.Net.Http.HttpClient client = new System.Net.Http.HttpClient())
             {
@@ -57,30 +48,37 @@ namespace HackDayBot.Bot.Dialogs
                 string RequestURI = String.Format("{0}?subscription-key={1}&q={2}",
                     LUIS_Url, LUIS_Subscription_Key, LUISQuery);
                 System.Net.Http.HttpResponseMessage msg = await client.GetAsync(RequestURI);
+
                 if (msg.IsSuccessStatusCode)
                 {
                     var JsonDataResponse = await msg.Content.ReadAsStringAsync();
-
                     var data = JObject.Parse(JsonDataResponse);
 
-                    var intent = data["topScoringIntent"]["intent"];
-                    var clientName = data["entities"]["0"]["entity"];
-                   
+                    var intent = data["topScoringIntent"]["intent"].ToString();
+                    var clientName = data["entities"]["0"]["entity"].ToString();
 
-                    //extract client from JSON file.
-
-                    //work out column to query using intent
-                    //calling the appropriate method and passing the client.
-                    //work out the client it is for.
-
-
-
-
-
-                    LUISResult = JsonConvert.DeserializeObject<LUIS>(JsonDataResponse);
+                    switch (intent)
+                    {
+                     case "client documentation":
+                            //link = repositorycall(client)
+                            break;
+                     case "Client sites":
+                            //link = repositorycall(client)
+                            break;
+                     case "Phone numbers":
+                            //link = repositorycall(client)
+                            break;
+                     case "RFCs/ Change Control":
+                            //link = repositorycall(client)
+                            break;
+                    }
                 }
             }
-            return LUISResult;
+            return link;
         }
+
+        //next steps: link to repository layer. 
+        //have links for necessary tables.
+        //link to teams.
     }
 }
