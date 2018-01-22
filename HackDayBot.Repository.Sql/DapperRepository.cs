@@ -1,12 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace HackDayBot.Repository.Sql
 {
-    public class DapperRepository : IDapperRepository
+    public class DapperRepository
     {
-        public async Task Retrieve(string key)
+        public string ExecuteQuery(string query)
         {
-            throw new System.NotImplementedException();
+            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString))
+            {
+                return db.ExecuteScalar<string>(query);
+            }
         }
     }
 }

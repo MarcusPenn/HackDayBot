@@ -48,5 +48,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HackDayBot.Repository.Sql\HackDayBot.Repository.Sql.csproj">
+      <Project>{96FC93E8-E20B-4396-9224-F2C6B7985354}</Project>
+      <Name>HackDayBot.Repository.Sql</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
