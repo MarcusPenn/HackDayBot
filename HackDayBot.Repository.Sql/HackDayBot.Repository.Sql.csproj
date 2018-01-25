@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ClientRepository.cs" />
     <Compile Include="DapperRepository.cs" />
+    <Compile Include="ExamRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
