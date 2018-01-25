@@ -3,14 +3,15 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System.Web.Configuration;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using HackDayBot.Repository.Sql;
 
 namespace HackDayBot.Bot.Dialogs
 {
     [Serializable]
     public class RootDialog : IDialog<object>
     {
+        public static ClientRepository _clientRepo = new ClientRepository();
         public Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
@@ -29,6 +30,11 @@ namespace HackDayBot.Bot.Dialogs
             if(searchString != null)
             {
                 link = await QueryLUIS(activity.Text);
+
+                if(link == null)
+                {
+                    link = "Sorry, could not find :(";
+                }
             }
 
             await context.PostAsync(link);
@@ -55,12 +61,12 @@ namespace HackDayBot.Bot.Dialogs
                     var data = JObject.Parse(JsonDataResponse);
 
                     var intent = data["topScoringIntent"]["intent"].ToString();
-                    var clientName = data["entities"]["0"]["entity"].ToString();
+                    var clientName = data["entities"][0]["entity"].ToString();
 
                     switch (intent)
                     {
                      case "client documentation":
-                            //link = repositorycall(client)
+                            _clientRepo.GetClientNotebookUrl(clientName);
                             break;
                      case "Client sites":
                             //link = repositorycall(client)
