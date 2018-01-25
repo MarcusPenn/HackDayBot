@@ -66,7 +66,7 @@ namespace HackDayBot.Bot.Dialogs
                     switch (intent)
                     {
                      case "client documentation":
-                            _clientRepo.GetClientNotebookUrl(clientName);
+                           link = _clientRepo.GetClientNotebookUrl(clientName);
                             break;
                      case "Client sites":
                             //link = repositorycall(client)
